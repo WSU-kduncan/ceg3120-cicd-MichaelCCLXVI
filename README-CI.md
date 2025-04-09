@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/41bef3e0-c8ef-492a-ab1d-3b9adccb9134)# Project 4
+# Project 4
 Michael Albright
 
 
