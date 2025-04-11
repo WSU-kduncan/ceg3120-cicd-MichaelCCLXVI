@@ -29,6 +29,7 @@ Using docker with Ubuntu:
   * May need to restart it after exiting the container configuration.
 * Get the compressed `angular-bird.zip` file with the command `wget https://github.com/pattonsgirl/CEG3120/raw/refs/heads/main/Projects/Project4/angular-bird.zip`
 * Unzip it and relocate the files with the command `unzip angular-bird.zip -d angular-site`
-* Change directory with `cd angular-site/wsu-hw/`
+* Change directory with `cd angular-site/wsu-hw-ng-main/`
 * Use command `npm install -g @angular/cli`, then if necessary just `npm install`
 * Start the server with the command `ng serve --host 0.0.0.0` to open it to all IP addresses.
+ - Confirm the server is running by connecting to the instance in another ubuntu window and use the command `curl 0.0.0.0`.
