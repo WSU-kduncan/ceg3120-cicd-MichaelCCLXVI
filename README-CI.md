@@ -32,4 +32,33 @@ Using docker with Ubuntu:
 * Change directory with `cd angular-site/wsu-hw-ng-main/`
 * Use command `npm install -g @angular/cli`, then if necessary just `npm install`
 * Start the server with the command `ng serve --host 0.0.0.0` to open it to all IP addresses.
- - Confirm the server is running by connecting to the instance in another ubuntu window and use the command `curl 0.0.0.0`.
+  * There will be no command line to enter commands into once the server is running.
+  * Confirm the server is running by connecting to the instance in another ubuntu window and use the command `curl 0.0.0.0`.
+
+### Building an image with a Dockerfile
+Once again using docker with Ubuntu, multiple different lines are needed in the `Dockerfile` to run Angular, including:
+* `FROM`, followed by the base image, in this case: `node:18-bullseye`
+* `COPY`, followed by the directory to copy from (in your system), followed by the directory to copy to (in the image filesystem)
+  * NOTE: The `COPY` line copiess the source directory's CONTENTS, not the directory itself.
+* `WORKDIR`, followed by the directory to run commands from in the image filesystem.
+  * NOTE: Best to put this line after the `COPY` line.
+* `RUN`, followed by a command to run in the image
+  * NOTE: Multiple `RUN` lines are allowed, each will run one after another.
+* `CMD`, followed by the command to run when a container runs this image.
+  * NOTE: If multiple `CMD` lines exist, only the last one will run when a container uses this image.
+For this part of the project, the `Dockerfile` contains these lines:
+```
+FROM node:18-bullseye
+
+COPY angular-site .
+
+WORKDIR /wsu-hw-ng-main
+
+RUN npm install -g @angular/cli
+
+RUN npm install
+
+CMD ng serve --host 0.0.0.0
+```
+To validate these lines, perform the same steps as in the previous section:
+  * There will be no command line to enter commands into once the server is running.                                      * Confirm the server is running by connecting to the instance in another ubuntu window and use the command `curl 0.0.0.0`.
