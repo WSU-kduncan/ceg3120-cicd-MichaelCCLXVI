@@ -64,6 +64,13 @@ To validate these lines, perform the same steps as in the previous section:
   * There will be no command line to enter commands into once the server is running.
   * Confirm the server is running by connecting to the instance in another ubuntu window and use the command `curl 0.0.0.0`.
 
+### Creating a Docker repository
+* In your Docker Desktop window, click the nine-dotted icon and click `Docker Hub`
+* What should be present is the repositories for the account.
+* Click `Create a repository`
+* Give it a name, and description if desired, make it visibly public, and then hit `Create`.
+* The repository should be created.
+
 ### Push Dockerfile image to Dockerhub
 This part can get a bit tricky. If the image was named improperly, the `docker` command line will not push properly.  Tofix this:
 * `docker logout`
