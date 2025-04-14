@@ -61,4 +61,19 @@ RUN npm install
 CMD ng serve --host 0.0.0.0
 ```
 To validate these lines, perform the same steps as in the previous section:
-  * There will be no command line to enter commands into once the server is running.                                      * Confirm the server is running by connecting to the instance in another ubuntu window and use the command `curl 0.0.0.0`.
+  * There will be no command line to enter commands into once the server is running.
+  * Confirm the server is running by connecting to the instance in another ubuntu window and use the command `curl 0.0.0.0`.
+
+### Push Dockerfile image to Dockerhub
+This part can get a bit tricky. If the image was named improperly, the `docker` command line will not push properly.  Tofix this:
+* `docker logout`
+* Change the name of the image with the command `docker tag <imageId> username/dockerrepo`
+* Log back in using a Personal Access Token instead of a password
+  * Log in to docker through a web explorer
+  * Go to `Account Settings` under the user icon, then to the `Personal access tokens` tab.
+  * Create a Personal access token with the proper permissions, then follow given instructions.
+* Push the image to the repo with the command `docker push username/dockerrepo`
+
+
+### Sources:
+* https://stackoverflow.com/questions/36663742/docker-unauthorized-authentication-required-upon-push-with-successful-login/42300879#42300879
