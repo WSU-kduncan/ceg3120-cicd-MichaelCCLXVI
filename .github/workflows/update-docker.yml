@@ -6,7 +6,7 @@ on:
 jobs:
   updateDocker:
     runs-on: ubuntu-latest
-    steps:
+      steps:
       - name: Login, build, and push
         uses: actions/checkout@v2
         env:
