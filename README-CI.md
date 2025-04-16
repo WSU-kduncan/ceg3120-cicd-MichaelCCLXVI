@@ -25,7 +25,8 @@ For Ubuntu/WSL2:
 ### Running the container manually
 Using docker with Ubuntu:
 * Use command `docker pull node:18-bullseye` to get the appropriate image
-* Then, use the command `docker run -it node:18-bullseye bash` to create the container, start it, and attach to it with `bash`
+* Then, use the command `docker run -it -p 4200:4200 node:18-bullseye bash` to create the container, start it, and attach to it with `bash`
+  * The `-p 4200:4200` option is to properly open the container to the desired port.
   * May need to restart it after exiting the container configuration.
 * Get the compressed `angular-bird.zip` file with the command `wget https://github.com/pattonsgirl/CEG3120/raw/refs/heads/main/Projects/Project4/angular-bird.zip`
 * Unzip it and relocate the files with the command `unzip angular-bird.zip -d angular-site`

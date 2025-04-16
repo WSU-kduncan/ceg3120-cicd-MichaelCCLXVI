@@ -1,0 +1,19 @@
+name: push-dockerfile-image
+on:
+  push:
+    branches: [main]
+    workflow-dispatch:
+jobs:
+  updateDocker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - shell: bash
+      - env:
+          USER: ${{ secrets.DOCKER_USERNAME }}
+          PASS: ${{ secrets.DOCKER_TOKEN }}
+      - name: Login, build, and push
+        run: |
+          docker login -u "$USER" -p "$PASS"
+          docker build -t "$USER"/albright-ceg3120 .
+          docker push "$USER"/albright-ceg3120
