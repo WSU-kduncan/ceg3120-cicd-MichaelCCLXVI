@@ -82,6 +82,31 @@ This part can get a bit tricky. If the image was named improperly, the `docker` 
   * Create a Personal access token with the proper permissions, then follow given instructions.
 * Push the image to the repo with the command `docker push username/dockerrepo`
 
+## Github Actions
+With Github Actions, the image created by the Dockerfile can be updated after every `git push`.  To utilize workflows securely, the secrets in the git repository will be made.
+
+### Creating secrets
+To create secrets in the GitHub repo:
+* Go to the repository's `Settings` tab
+* Click on the `Secrets and variables` section on the right
+  * go to `actions`
+* There is a section called `Repository secrets`, click on `New repository secret` to make a new one.
+  * Give it a name, e.g. `DOCKER_USERNAME`, depending on what value will be stored in it.
+
+### Workflow
+The [workflow file](.github/workflows/update-docker.yml) builds an image from the Dockerfile and pushes the image to the Docker repository.  This happens after each push to the git repository.  
+For each step in the workflow's job section:
+* Checkout & Set up docker buildx
+  * Both of these steps set up necessary components for other steps.
+* Login to Dockerhub
+  * Logs in to Dockerhub to access the repository
+  * Two secrets are used here to login: `DOCKER_USERNAME` and `DOCKER TOKEN`
+* Build & push
+  * First, this step builds an image from the Dockerfile and also tags it with the repository name (and latest)
+    * This part also uses two secrets: `DOCKER_USERNAME` and `DOCKER_REPO`
+  * Second, the created image pushes the new image to the docker repository, replacing the current image with the name and tag.
+
 
 ### Sources:
 * https://stackoverflow.com/questions/36663742/docker-unauthorized-authentication-required-upon-push-with-successful-login/42300879#42300879
+* https://github.com/pattonsgirl/CEG3120/blob/main/Projects/Project4/sample-workflows/docker-workflow-v2.yml
