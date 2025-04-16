@@ -7,13 +7,12 @@ jobs:
   updateDocker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        shell: bash
+      - name: Login, build, and push
+        uses: actions/checkout@v2
         env:
           USER: ${{ secrets.DOCKER_USERNAME }}
           PASS: ${{ secrets.DOCKER_TOKEN }}
-        name: Login, build, and push
-      - run: |
+         run: |
           docker login -u "$USER" -p "$PASS"
           docker build -t "$USER"/albright-ceg3120 .
           docker push "$USER"/albright-ceg3120
