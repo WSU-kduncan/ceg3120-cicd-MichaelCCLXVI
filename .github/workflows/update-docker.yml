@@ -2,17 +2,24 @@ name: push-dockerfile-image
 on:
   push:
     branches: [main]
-    workflow-dispatch:
 jobs:
   updateDocker:
     runs-on: ubuntu-latest
-      steps:
-      - name: Login, build, and push
+    steps:
+      - name: Checkout
         uses: actions/checkout@v2
-        env:
-          USER: ${{ secrets.DOCKER_USERNAME }}
-          PASS: ${{ secrets.DOCKER_TOKEN }}
-         run: |
-          docker login -u "$USER" -p "$PASS"
-          docker build -t "$USER"/albright-ceg3120 .
-          docker push "$USER"/albright-ceg3120
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build & push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
