@@ -104,7 +104,21 @@ For each step in the workflow's job section:
 * Build & push
   * First, this step builds an image from the Dockerfile and also tags it with the repository name (and latest)
     * This part also uses two secrets: `DOCKER_USERNAME` and `DOCKER_REPO`
-  * Second, the created image pushes the new image to the docker repository, replacing the current image with the name and tag.
+  * Second, the created image pushes the new image to the docker repository, replacing the current image with the name and tag
+
+### Does it work?
+To verify if the actions actually pushed the image to the repo AND if the image still works:
+* Check for a change in the image repository in the Docker desktop application
+* Pull and run the image
+  * `docker pull username/repository`
+  * `docker run -p 4200:4200 repository`
+* Use `curl` in the instance in another window
+  * `curl http://localhost:4200/
+* The contents of angular's `index.html` file should display
+Evidence:
+![GitHub proof](images/GitHubCheck.png)
+![Docker proof](images/DockerDesktopCheck.png)
+![Curl proof](images/CurlCheck.png)
 
 
 ### Sources:
