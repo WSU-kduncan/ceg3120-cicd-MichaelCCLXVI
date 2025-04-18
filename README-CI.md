@@ -2,14 +2,24 @@
 Michael Albright
 
 
+## Project Overview
+
 **This project involves**:
 - running an application using a container with Docker
 - automating the pipeline with Github Actions
-
 **Tools used**:
 - Ubuntu & Docker
 - nginx
 - angular
+**Diagram of this project**:
+```mermaid
+flowchart BT
+    A[Developer] --> B[Dockerfile]
+    B --> C[GitHub] 
+    C --> D[GitHub Action]
+    B --> D
+    D --> E[Dockerhub]
+```
 
 ## Running the Project
 Using Windows 11 or Ubuntu 22.04, installing docker is easy.
