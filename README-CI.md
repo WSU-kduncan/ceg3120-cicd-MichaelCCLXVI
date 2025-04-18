@@ -20,7 +20,9 @@ flowchart LR
     B --> C[GitHub] 
     C -->|actions/checkout@v2| D[GitHub Action]
     D -->|docker/login-action@v1| E[Dockerhub]
-    B -->|docker/build-push-action@v2| E
+    B --> F(docker/build-push-action@v2)
+    F --> D
+    F --> E
 ```
 
 ## Running the Project
