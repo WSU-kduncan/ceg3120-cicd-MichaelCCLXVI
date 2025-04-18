@@ -7,18 +7,20 @@ Michael Albright
 **This project involves**:
 - running an application using a container with Docker
 - automating the pipeline with Github Actions
+
 **Tools used**:
 - Ubuntu & Docker
 - nginx
 - angular
+
 **Diagram of this project**:
 ```mermaid
-flowchart BT
-    A[Developer] --> B[Dockerfile]
+flowchart LR
+    A[Developer] -->|Direct access| B[Dockerfile]
     B --> C[GitHub] 
-    C --> D[GitHub Action]
-    B --> D
-    D --> E[Dockerhub]
+    C -->|actions/checkout@v2| D[GitHub Action]
+    D -->|docker/login-action@v1| E[Dockerhub]
+    B -->|docker/build-push-action@v2| E
 ```
 
 ## Running the Project
