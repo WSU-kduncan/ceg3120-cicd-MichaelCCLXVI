@@ -1,7 +1,10 @@
 name: push-dockerfile-image
 on:
+  schedule: 
+    - cron: "0 10 * * *"
   push:
-    branches: [main]
+    branches: 
+      - "main"
     tags: 
       - "v*.*.*"
 jobs:
@@ -15,13 +18,9 @@ jobs:
           images: |
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
           tags: |
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
+            latest
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=sha
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up Docker buildx
