@@ -1,0 +1,7 @@
+[
+	{
+		"id": "redeploy",
+		"execute-command": "/home/ubuntu/ceg-cicd-MichaelCCLXVI/deployment/run-deploy.sh",
+		"command-working-directory": "usr/bin/webhook"
+	}
+]

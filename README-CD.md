@@ -48,6 +48,77 @@ Evidence the workflows worked:
 These images were taken at roughly the same time.
 
 
+## Continuous Deployment
+This part involves using `webhook`s and an EC2 Instance is necessary.
+
+### Instance Details
+* AMI:              `Ubuntu-24.04`
+* Instance type:    `t2.medium`
+* Volume size:      `30 GiB`
+* Security Group Configuration:
+  * Inbound:
+    * `0.0.0.0/0`; 4200     to view the site from port 4200
+    * `0.0.0.0/0`; 80
+    * `130.108.0.0/16`; 22
+    * `My home IP`; 22
+  * Outbound:
+    * `0.0.0.0/0`; All ports
+
+### Docker on Ubuntu
+* Install Docker with `sudo apt install docker.io`
+* Get the desired image with `docker pull [image]`
+* To run a container with the image, use `docker run [-it/-d] -p 4200:4200 [image] (bash)`
+  * `-it` enables interaction with the container after it is created
+    * `bash` is included in the command
+  * `-d` runs the container in the background, detaching it
+    * `bash` is not included in the command
+* To validate:
+  * From container side:
+    * Attaching to container should tell if angular is running
+  * From host side:
+    * `curl localhost:4200`
+  * From external source:
+    * In a url bar: `http://[instance ip]:4200`
+* If a new image version is available:
+  * Stop current container with `docker stop [containerid]`
+  * Remove container with `docker rm [containerid]`
+  * Pull newest version of image with `docker pull [image]:latest`
+  * Run a new container with the newest image version
+  * Verify once again
+
+### bash: Container Refreshing
+* The [bash script](deployment/run-deploy.sh) is question will:
+  * Kill and remove any containers using the Dockerfile image
+  * Pull the latest version of the Dockerfile image
+  * Run a new container with the latest version of the image
+* To test the script works:
+  * `bash run-deploy.sh` from the `deployment` directory
+    * or just replace `run-deploy.sh` with the path to that file
+  * `docker ps` should display a newly created running container
+
+### Webhook
+* Install `webhook` to ubuntu with `sudo apt install webhook`
+* Verify installation by finding the `webhook command`
+  * `which webhook`
+* The [definition file](deployment/hooks.json) gives a hook
+  * an id (`redeploy` in this case)
+  * a command to execute (the bash script in this case)
+  * a working directory for the command (`/usr/bin/webhook`) in this case
+* Run a hook with the command `webhook -hooks [definition file] -verbose` (`-verbose` to see an output)
+* To verify the hook:
+  * Connect to the instance in another tab and type `curl localhost:9000/hooks/redeploy`
+    * `redeploy` is the instance id in this case
+  * The second instance connection may show nothing, but check the first tab
+  * The first tab should be mention a connection has been made to the hook
+
+### Payloads
+* I have chosen Docker as the payload sender
+  * Since any change made to an image reaches Docker only
+* Enable a webhook in Docker through the `webhooks` tab in the image repository in hub.docker.com
+* The webhook kicks off a workflow when an image is pushed to the repository
+* Verify the success by checking the webhook in the Docker hub.
+
+
 
 ### Sources:
 * https://docs.docker.com/build/ci/github-actions/manage-tags-labels/
