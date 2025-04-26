@@ -119,6 +119,16 @@ This part involves using `webhook`s and an EC2 Instance is necessary.
 * The webhook kicks off a workflow when an image is pushed to the repository
 * Verify the success by checking the webhook in the Docker hub.
 
+### Service
+* A [webhook service file](deployment/webhook.service) contains the requirements on running `webhook` as a service.
+  * `[Unit]`:    Info for the service itself, including a description, documentation, and a condition to start it.
+  * `[Service]`: Starting the service
+  * `[Install]`: What/how to install
+* Enable the service with `sudo systemctl enable webhook.service`
+* Start the service with `sudo systemctl start webhook.service`
+* Check the service with `sudo systemctl status webhook.service`
+* View the outputs of the service with `journalctl -f -u webhook.service`
+  * See if an output happens when the webhook is connected to. 
 
 
 ### Sources:

@@ -3,5 +3,29 @@
 		"id": "redeploy",
 		"execute-command": "/home/ubuntu/ceg3120-cicd-MichaelCCLXVI/deployment/run-deploy.sh",
 		"command-working-directory": "/usr/bin"
-	}
+	},
+	"trigger-rule": {
+      		"and": [
+        	{
+        	  	"match": {
+            			"type": "value",
+            			"parameter": {
+              				"source": "payload",
+              				"name": "repository.repo_name"
+            			},
+            			"value": "wsumalbright/albright-ceg3120"
+          		}
+        	},
+        	{
+          		"match": {
+            			"type": "value",
+            			"parameter": {
+              				"source": "payload",
+              				"name": "push_data.tag"
+            			},
+            			"value": "latest"
+          		}
+        	}
+      		]
+    	}
 ]
