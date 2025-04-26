@@ -61,6 +61,7 @@ This part involves using `webhook`s and an EC2 Instance is necessary.
     * `0.0.0.0/0`; 80
     * `130.108.0.0/16`; 22
     * `My home IP`; 22
+    * `0.0.0.0/0`; 9000     for deployment
   * Outbound:
     * `0.0.0.0/0`; All ports
 
