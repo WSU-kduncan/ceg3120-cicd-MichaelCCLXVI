@@ -12,6 +12,16 @@ Michael Albright
 - GitHub Actions
 - webhook
 
+**Diagram of this project**:
+```mermaid
+flowchart LR
+A[Developer] --> B[GitHub]
+B --> |GitHub Actions| C[Docker Hub]
+C --> D[Webhook]
+D --> E[Docker Container]
+E --> A
+```
+
 
 ## Tagging
 * Using the `git tag` command to create tags
@@ -134,3 +144,4 @@ This part involves using `webhook`s and an EC2 Instance is necessary.
 ### Sources:
 * https://docs.docker.com/build/ci/github-actions/manage-tags-labels/
 * https://stackoverflow.com/questions/5195859/how-do-you-push-a-tag-to-a-remote-repository-using-git
+* Professor Duncan's help on discord
