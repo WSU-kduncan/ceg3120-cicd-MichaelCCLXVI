@@ -1,10 +1,6 @@
 name: push-dockerfile-image
 on:
-  schedule: 
-    - cron: "0 10 * * *"
   push:
-    branches: 
-      - "main"
     tags: 
       - "v*.*.*"
 jobs:
